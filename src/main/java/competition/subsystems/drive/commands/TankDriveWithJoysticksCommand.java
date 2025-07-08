@@ -39,7 +39,7 @@ public class TankDriveWithJoysticksCommand extends BaseCommand {
         // Pass values into the DriveSubsystem so it can control motors:
         // right now, this just sends the left power to the left part of the drive.
         // You'll need to give it a right power value as well.
-        drive.tankDrive(leftValue, 0);
+        drive.tankDrive(leftValue, rightValue);
     }
 
 }
