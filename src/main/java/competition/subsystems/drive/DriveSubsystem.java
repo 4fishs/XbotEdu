@@ -19,7 +19,8 @@ public class DriveSubsystem extends BaseDriveSubsystem implements DataFrameRefre
 
     public final XCANMotorController frontLeft;
     public final XCANMotorController frontRight;
-
+    private boolean chunktoggy;
+    private double fatpiggy=1;
     DoubleProperty dp;
 
     @Inject
@@ -40,12 +41,19 @@ public class DriveSubsystem extends BaseDriveSubsystem implements DataFrameRefre
         // You'll need to take these power values and assign them to all of the motors.
         // As an example, here is some code that has the frontLeft motor to spin
         // according to the value of leftPower:
-        frontLeft.setPower(leftPower);
-        frontRight.setPower(rightPower);
+        frontLeft.setPower(leftPower*fatpiggy);
+        frontRight.setPower(rightPower*fatpiggy);
         // TODO: Add code to set the right motors to the rightPower value.
-
     }
-
+    public void fattyprecision(){
+        if (chunktoggy){
+               chunktoggy=false;
+               fatpiggy=1;
+        }else {
+       chunktoggy=true;
+       fatpiggy=0.5;
+        }
+    }
 
     // You can ignore all of the code undearneat this comment -->
     // You won't have to touch it.
