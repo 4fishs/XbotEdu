@@ -10,6 +10,7 @@ public class DriveToPositionCommand extends BaseCommand {
 
     DriveSubsystem drive;
     PoseSubsystem pose;
+    double targetPosition;
 
     @Inject
     public DriveToPositionCommand(DriveSubsystem driveSubsystem, PoseSubsystem pose) {
@@ -20,6 +21,7 @@ public class DriveToPositionCommand extends BaseCommand {
     public void setTargetPosition(double position) {
         // This method will be called by the test, and will give you a goal distance.
         // You'll need to remember this target position and use it in your calculations.
+        targetPosition=position;
     }
 
     @Override
@@ -37,7 +39,9 @@ public class DriveToPositionCommand extends BaseCommand {
 
         // How you do this is up to you. If you get stuck, ask a mentor or student for
         // some hints!
-        drive.tankDrive(0.25,0.25);
+        double error= targetPosition - pose.getPosition();
+        double fattyPower= error / 150;
+        drive.tankDrive(fattyPower,fattyPower);
         pose.getPosition();
     }
 

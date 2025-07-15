@@ -19,7 +19,7 @@ public class DriveSubsystem extends BaseDriveSubsystem implements DataFrameRefre
 
     public final XCANMotorController frontLeft;
     public final XCANMotorController frontRight;
-    private boolean chunktoggy;
+    private boolean fatPrecisionOn;
     private double fatpiggy=1;
     DoubleProperty dp;
 
@@ -45,12 +45,12 @@ public class DriveSubsystem extends BaseDriveSubsystem implements DataFrameRefre
         frontRight.setPower(rightPower*fatpiggy);
         // TODO: Add code to set the right motors to the rightPower value.
     }
-    public void fattyprecision(){
-        if (chunktoggy){
-               chunktoggy=false;
+    public void toggleFattyPrecision(){
+        if (fatPrecisionOn){
+               fatPrecisionOn =false;
                fatpiggy=1;
         }else {
-       chunktoggy=true;
+       fatPrecisionOn =true;
        fatpiggy=0.5;
         }
     }
