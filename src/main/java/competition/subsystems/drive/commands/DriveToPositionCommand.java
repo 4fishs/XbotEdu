@@ -45,7 +45,7 @@ public class DriveToPositionCommand extends BaseCommand {
         // some hints!
         double error= targetPosition - pose.getPosition();
         double speed=pose.getPosition() - previousPosition;
-        double fattyPower= error / 2.5 - speed * 14 ;
+        double fattyPower= error / 2.5 - speed * 12 ;
         drive.tankDrive(fattyPower,fattyPower);
         pose.getPosition();
         previousPosition=pose.getPosition();
@@ -55,7 +55,8 @@ public class DriveToPositionCommand extends BaseCommand {
     public boolean isFinished() {
         // Modify this to return true once you have met your goal,
         // and you're moving fairly slowly (ideally stopped)
-        return false;
+            return false;
+        }
     }
 
 }
