@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import xbot.common.command.BaseCommand;
 import competition.subsystems.drive.DriveSubsystem;
 import competition.subsystems.pose.PoseSubsystem;
+import xbot.common.properties.DoubleProperty;
 
 public class DriveToPositionCommand extends BaseCommand {
 
@@ -14,6 +15,7 @@ public class DriveToPositionCommand extends BaseCommand {
     double previousPosition;
     double error;
     double speed;
+    DoubleProperty pProperty;
 
     @Inject
     public DriveToPositionCommand(DriveSubsystem driveSubsystem, PoseSubsystem pose) {
