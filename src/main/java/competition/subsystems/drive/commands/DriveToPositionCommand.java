@@ -12,6 +12,8 @@ public class DriveToPositionCommand extends BaseCommand {
     PoseSubsystem pose;
     double targetPosition;
     double previousPosition;
+    double error;
+    double speed;
 
     @Inject
     public DriveToPositionCommand(DriveSubsystem driveSubsystem, PoseSubsystem pose) {
@@ -22,10 +24,11 @@ public class DriveToPositionCommand extends BaseCommand {
     public void setTargetPosition(double position) {
         // This method will be called by the test, and will give you a goal distance.
         // You'll need to remember this target position and use it in your calculations.
-        targetPosition=position;
+        targetPosition = position;
     }
-    public void setPreviousPosition(){
-        previousPosition=pose.getPosition();
+
+    public void setPreviousPosition() {
+        previousPosition = pose.getPosition();
     }
 
     @Override
@@ -43,20 +46,20 @@ public class DriveToPositionCommand extends BaseCommand {
 
         // How you do this is up to you. If you get stuck, ask a mentor or student for
         // some hints!
-        double error= targetPosition - pose.getPosition();
-        double speed=pose.getPosition() - previousPosition;
-        double fattyPower= error / 2.5 - speed * 12 ;
-        drive.tankDrive(fattyPower,fattyPower);
-        pose.getPosition();
-        previousPosition=pose.getPosition();
+        this.error = targetPosition - pose.getPosition();
+        this.speed = pose.getPosition() - previousPosition;
+        double fattyPower = error / 2.5 - speed * 12;
+        drive.tankDrive(fattyPower, fattyPower);
+        previousPosition = pose.getPosition();
     }
 
     @Override
     public boolean isFinished() {
+        if (Math.abs(error) < 0.01 && Math.abs(speed) < 0.01) {
+            return true;
+        }
+        return false;
         // Modify this to return true once you have met your goal,
         // and you're moving fairly slowly (ideally stopped)
-            return false;
-        }
     }
-
 }
