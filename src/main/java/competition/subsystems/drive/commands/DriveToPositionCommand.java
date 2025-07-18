@@ -6,8 +6,11 @@ import xbot.common.command.BaseCommand;
 import competition.subsystems.drive.DriveSubsystem;
 import competition.subsystems.pose.PoseSubsystem;
 import xbot.common.properties.DoubleProperty;
+import xbot.common.properties.PropertyFactory;
 
 public class DriveToPositionCommand extends BaseCommand {
+
+    //public DoubleProperty;
 
     DriveSubsystem drive;
     PoseSubsystem pose;
@@ -18,9 +21,11 @@ public class DriveToPositionCommand extends BaseCommand {
     DoubleProperty pProperty;
 
     @Inject
-    public DriveToPositionCommand(DriveSubsystem driveSubsystem, PoseSubsystem pose) {
+    public DriveToPositionCommand(DriveSubsystem driveSubsystem, PoseSubsystem pose, PropertyFactory propertyFactory) {
         this.drive = driveSubsystem;
         this.pose = pose;
+        propertyFactory.setPrefix(this);
+        pProperty = propertyFactory.createPersistentProperty("p", 1);
     }
 
     public void setTargetPosition(double position) {
@@ -53,6 +58,7 @@ public class DriveToPositionCommand extends BaseCommand {
         double fattyPower = error / 2.5 - speed * 12;
         drive.tankDrive(fattyPower, fattyPower);
         previousPosition = pose.getPosition();
+        System.out.println(pProperty.get());
     }
 
     @Override
